@@ -7,7 +7,7 @@ class Time:
     Tools for AI
     """
     @kernel_function(
-        description="Get current dateand time"
+        description="Get current date and time"
     )
     async def get_time() -> datetime.datetime.now:
         """
