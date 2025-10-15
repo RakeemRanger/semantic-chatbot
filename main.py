@@ -13,7 +13,7 @@ from semantic_kernel.connectors.ai.anthropic import (
 from semantic_kernel.connectors.ai.function_choice_behavior import FunctionChoiceBehavior
 from semantic_kernel.core_plugins.time_plugin import TimePlugin
 
-from tools.timetool import AiTools
+from tools.get_time import Time
 
 anthropc_model = "claude-sonnet-4-5"
 anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
@@ -31,7 +31,7 @@ async def chat_with_ai() -> str:
     )
     
     # Add the time plugin
-    kernel.add_plugin(AiTools, "Time")
+    kernel.add_plugin(Time, "Time")
     
     # Get the chat completion service from the kernel
     chat_completion = kernel.get_service(service_id="chat")
