@@ -1,9 +1,8 @@
 import datetime
 
-
 from semantic_kernel.functions import kernel_function
 
-class AiTools:
+class Time:
     """
     Tools for AI
     """
