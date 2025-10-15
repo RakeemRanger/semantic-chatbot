@@ -7,9 +7,9 @@ from semantic_kernel.connectors.ai.anthropic import (
     AnthropicChatCompletion,
     AnthropicChatPromptExecutionSettings
 )
+
 model = "claude-sonnet-4-5"
 api_key = os.getenv("ANTHROPIC_API_KEY")
-
 
 async def chat_with_ai() -> str:
     bot = AnthropicChatCompletion(
@@ -34,7 +34,8 @@ async def chat_with_ai() -> str:
             chat_history.add_assistant_message(str(response))
     except Exception as e:
         print(f"Issue starting Chat Bot: {e}")
-    
+
+
 def main():
     asyncio.run(chat_with_ai())
 
