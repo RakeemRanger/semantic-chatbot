@@ -1,3 +1,6 @@
+"""
+A simple chatbot implementation using Microsoft's Semantic Kernel and Anthropic's Claude AI model.
+"""
 import asyncio
 import os
 
