@@ -19,6 +19,7 @@ async def chat_with_ai() -> str:
     kernel = Kernel()
     chat_history = ChatHistory()
     execution_setting = AnthropicChatPromptExecutionSettings()
+    kernel.add_service(bot)
     try:
         while True:
             user_input = input("user:")
@@ -31,8 +32,8 @@ async def chat_with_ai() -> str:
             )
             print(f"Assistant: {response}")
             chat_history.add_assistant_message(str(response))
-    except:
-        raise Exception("Error")
+    except Exception as e:
+        print(f"Issue starting Chat Bot: {e}")
     
 def main():
     asyncio.run(chat_with_ai())
