@@ -1,0 +1,1 @@
+LOG_FOLDER = '/home/nodebrite/semantic/semantic-chatbot/logs'
