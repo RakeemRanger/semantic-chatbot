@@ -8,8 +8,8 @@ A chatbot implementation using Microsoft's Semantic Kernel framework with Anthro
 - 💬 Persistent chat history management
 - 🛠️ **Automatic function calling** with Semantic Kernel plugins
 - ⏰ Time plugin for retrieving current date and time
-- � GitHub integration for repository management
-- �🔌 Extensible plugin architecture for adding custom tools
+- 🐙 GitHub integration for repository management (list & create repos)
+- 🔌 Extensible plugin architecture for adding custom tools
 - ❌ Clean exit handling
 
 ## Prerequisites
@@ -70,6 +70,9 @@ User: can you list all repos
 Assistant: You have one GitHub repository:
 
 - **dartinbot-framework-qa**
+
+User: can you create a repo name chancetheman and the repo is about a football app
+Assistant: Great! I've successfully created the GitHub repository "chancetheman" for your football app project. The repository is now set up and ready for you to start adding your code and files.
 
 User: exit
 ```
@@ -146,7 +149,10 @@ This chatbot uses Semantic Kernel's automatic function calling feature, allowing
 
 ### Built-in Plugins
 - **TimePlugin**: Provides current date and time information
-- **ProjectSourceControl**: GitHub repository management and queries
+- **ProjectSourceControl**: GitHub repository management
+  - List user repositories
+  - Create new repositories
+  - Query repository information
 
 ### Custom Plugins
 Custom tools are located in the `tools/` directory:
@@ -172,6 +178,12 @@ class ProjectSourceControl:
     async def list_repos(self):
         user = self.gh_client.get_user()
         return user.get_repos()
+    
+    @kernel_function(description="create a new Github Repository")
+    async def create_repo(self, repo_name: str, description: str):
+        user = self.gh_client.get_user()
+        repo = user.create_repo(repo_name, description=description)
+        return f"Repository '{repo_name}' created successfully!"
 ```
 
 ### Adding New Plugins
