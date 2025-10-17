@@ -21,6 +21,9 @@ build/
 .env.local
 .env.*.local
 
+# Constants file
+CONSTANTS.py
+
 # IDE / Editor
 .vscode/
 .idea/
