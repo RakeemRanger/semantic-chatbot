@@ -8,7 +8,8 @@ A chatbot implementation using Microsoft's Semantic Kernel framework with Anthro
 - 💬 Persistent chat history management
 - 🛠️ **Automatic function calling** with Semantic Kernel plugins
 - ⏰ Time plugin for retrieving current date and time
-- 🔌 Extensible plugin architecture for adding custom tools
+- � GitHub integration for repository management
+- �🔌 Extensible plugin architecture for adding custom tools
 - ❌ Clean exit handling
 
 ## Prerequisites
@@ -41,9 +42,11 @@ A chatbot implementation using Microsoft's Semantic Kernel framework with Anthro
    ```bash
    # Linux/Mac
    export ANTHROPIC_API_KEY='your-api-key-here'
+   export GITHUB_ACCESS_TOKEN='your-github-token-here'  # For GitHub integration
    
    # Windows
    set ANTHROPIC_API_KEY=your-api-key-here
+   set GITHUB_ACCESS_TOKEN=your-github-token-here
    ```
 
 ## Usage
@@ -55,9 +58,21 @@ python main.py
 python chatter.py
 ```
 
-Example interaction:
+Example interactions:
 ```
 User: Hello!
+Assistant: Hi! How can I help you today?
+
+User: What time is it?
+Assistant: The current time is 2:30 PM on October 17, 2025.
+
+User: can you list all repos
+Assistant: You have one GitHub repository:
+
+- **dartinbot-framework-qa**
+
+User: exit
+```
 Assistant: Hi! How can I help you today?
 
 User: What time is it?
@@ -131,6 +146,7 @@ This chatbot uses Semantic Kernel's automatic function calling feature, allowing
 
 ### Built-in Plugins
 - **TimePlugin**: Provides current date and time information
+- **ProjectSourceControl**: GitHub repository management and queries
 
 ### Custom Plugins
 Custom tools are located in the `tools/` directory:
@@ -143,6 +159,19 @@ class Time:
     @kernel_function(description="Get current date and time")
     async def get_time() -> datetime.datetime:
         return datetime.datetime.now()
+```
+
+```python
+# tools/project_scaffold.py
+from github import Github
+from github.Auth import Token
+from semantic_kernel.functions import kernel_function
+
+class ProjectSourceControl:
+    @kernel_function(description="list all user Github Repositories")
+    async def list_repos(self):
+        user = self.gh_client.get_user()
+        return user.get_repos()
 ```
 
 ### Adding New Plugins
@@ -165,8 +194,11 @@ The AI will automatically discover and use your functions when appropriate!
 semantic-chatbot/
 ├── main.py              # Main chatbot implementation
 ├── chatter.py           # Alternative chatbot entry point
+├── automain.py          # Autonomous agent version
 ├── tools/
 │   ├── get_time.py      # Custom time tool
+│   ├── app_info.py      # Application info plugin
+│   ├── project_scaffold.py  # GitHub integration plugin
 │   └── timetool.py      # Additional time utilities
 ├── semanticvenv/        # Virtual environment (gitignored)
 ├── README.md
@@ -178,7 +210,14 @@ semantic-chatbot/
 ## Environment Variables
 ```env
 ANTHROPIC_API_KEY=your-api-key-here
+GITHUB_ACCESS_TOKEN=your-github-personal-access-token  # Required for GitHub features
 ```
+
+### How to Get a GitHub Personal Access Token:
+1. Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
+2. Click "Generate new token (classic)"
+3. Select scopes: `repo` (for repository access)
+4. Copy the token and set it as an environment variable
 
 ## Contributing
 1. Fork the repository
