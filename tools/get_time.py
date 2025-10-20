@@ -2,6 +2,8 @@ import datetime
 
 from semantic_kernel.functions import kernel_function
 
+from lib.log_client import logClient
+
 class Time:
     """
     Tools for AI
@@ -13,6 +15,6 @@ class Time:
         """
         current date and time
         """
+        logger = logClient(__name__)
+        logger.info("Triggering Time LLM Function")
         return datetime.datetime.now()
-
-

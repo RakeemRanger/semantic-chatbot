@@ -15,12 +15,14 @@ from semantic_kernel.core_plugins.time_plugin import TimePlugin
 
 from tools.get_time import Time
 from tools.app_info import AppName
-from tools.project_scaffold import ProjectSourceControl
-
-anthropc_model = "claude-sonnet-4-5"
-anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
+from tools.source_control import ProjectSourceControl
+from tools.scaffold_generator import ProjectScaffold
+from lib.claude_details import AnthropicDetails
 
 async def chat_with_ai() -> str:
+    anthropic_details = AnthropicDetails()
+    anthropc_model = anthropic_details.claude_sonnet_latest()
+    anthropic_api_key = anthropic_details.API_KEY
     kernel = Kernel()
     
     # Add the AI service
@@ -33,9 +35,10 @@ async def chat_with_ai() -> str:
     )
     
     # Add plugins with unique names (instantiate the classes with ())
-    kernel.add_plugin(Time(), "TimeTools")
+    kernel.add_plugin(Time, "TimeTools")
     kernel.add_plugin(AppName(), "AppInfo")
     kernel.add_plugin(ProjectSourceControl(), "ProjectSourceControl")
+    kernel.add_plugin(ProjectScaffold(), "ScaffoldGenerator")
     
     # Get the chat completion service from the kernel
     chat_completion = kernel.get_service(service_id="chat")

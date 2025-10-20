@@ -2,8 +2,6 @@ import logging
 import os
 import json
 
-from lib.CONTSTANTS import LOG_FOLDER
-
 
 class JsonFormatter(logging.Formatter):
     def format(self, record):
@@ -18,7 +16,7 @@ class JsonFormatter(logging.Formatter):
 
 
 def logClient(logName: str) -> logging.Logger:
-    log_directory = LOG_FOLDER
+    log_directory = os.getenv("LOG_FOLDER")
     log_dir = os.path.join(os.path.dirname(__file__), str(log_directory))
     os.makedirs(log_dir, exist_ok=True)
     log_path = os.path.join(log_dir, f"{logName}.log")
