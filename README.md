@@ -1,23 +1,73 @@
-# Semantic Kernel Chatbot with Claude 🤖
+# AI-Powered Project Scaffold Generator 🚀
 
-> An intelligent chatbot powered by Microsoft's Semantic Kernel framework and Anthropic's Claude AI, featuring automatic function calling and extensible plugin architecture.
+> An intelligent project scaffolding application powered by Microsoft Semantic Kernel and Claude Sonnet 4.5. Automatically generates complete, production-ready project structures with AI-driven code generation, GitHub integration, and intelligent change detection.
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Semantic Kernel](https://img.shields.io/badge/Semantic%20Kernel-Latest-purple)](https://github.com/microsoft/semantic-kernel)
 [![Claude Sonnet 4.5](https://img.shields.io/badge/Claude-Sonnet%204.5-orange)](https://www.anthropic.com/claude)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Latest-red)](https://streamlit.io/)
 
-## ✨ Features
+## 🎯 What is This?
 
-- 🔄 **Asynchronous Architecture** - Non-blocking I/O for responsive interactions
-- 🤖 **Claude Sonnet 4.5 Integration** - State-of-the-art AI model from Anthropic
-- 💬 **Persistent Chat History** - Maintains context across conversation turns
-- 🛠️ **Automatic Function Calling** - AI autonomously invokes tools when needed
-- ⏰ **Time Intelligence** - Real-time date and time information
-- 🐙 **GitHub Integration** - List and create repositories via natural language
-- � **App Info Plugin** - Application metadata and information
-- �🔌 **Extensible Plugin System** - Easy-to-add custom tools and capabilities
-- 🔒 **Secure by Default** - Environment-based secrets management
+This is an **AI-powered project scaffold generator** that creates complete, production-ready applications through natural language conversations. Simply describe what you want to build, and the AI generates:
+
+- 📁 Complete project structure with proper organization
+- 💻 Production-ready code files (app logic, APIs, services)
+- 🧪 Comprehensive test suites
+- 📝 Documentation (README, setup guides, API docs)
+- 🐳 Docker configurations and docker-compose
+- ⚙️ Configuration files (.env, settings, logging)
+- 🔧 CI/CD pipeline templates
+- 🐙 Automatic GitHub repository creation
+- 🔀 Feature branch workflow with pull requests
+- 🗄️ Database schemas and migrations
+- 🌐 Frontend components (if applicable)
+
+## ✨ Key Features
+
+### 🤖 AI-Powered Generation
+- **Claude Sonnet 4.5 Integration** - State-of-the-art code generation
+- **Streaming API** - Real-time progress updates for large projects
+- **Intelligent File Generation** - Context-aware, production-ready code
+- **Multi-Language Support** - Python, JavaScript, TypeScript, Go, Rust, and more
+- **Framework Awareness** - FastAPI, Flask, React, Next.js, Express, Django, etc.
+
+### 🎨 Dual Interface
+- **CLI Mode** - Terminal-based interaction for developers
+- **Web UI** - Beautiful Streamlit interface for teams
+- **Chat Interface** - Natural language project creation
+- **File Preview** - See generated files before committing
+
+### 🐙 GitHub Integration
+- **Auto Repository Creation** - Creates GitHub repos automatically
+- **Feature Branch Workflow** - Updates create branches + PRs (never commit to main)
+- **Change Detection** - Tracks local and remote modifications
+- **Intelligent Commit Messages** - AI-generated, descriptive commits
+- **PR Management** - Detailed pull request descriptions with change summaries
+
+### 🗄️ Project Database
+- **Persistent Memory** - Tracks all generated projects across sessions
+- **UUID-based Tracking** - Unique identifiers for each project
+- **Metadata Storage** - Commit history, PR details, file snapshots
+- **Search & Filter** - Find projects by name, description, repository
+- **JSON Storage** - Simple, portable database format at `~/.dartinbot/projects/projects_db.json`
+
+### 🔍 Change Detection System
+- **Local Changes** - Detects modifications by users or other tools
+- **GitHub Changes** - Tracks commits and remote updates
+- **Sync Status** - Compares local vs remote state
+- **Snapshot System** - SHA256-based baseline tracking for reliability
+- **Multi-Agent Aware** - Knows when other tools modify projects
+- **Detailed Reports** - Shows added/modified/deleted files with timestamps
+
+### 📦 Project Management
+- **Create Projects** - Generate complete applications from scratch
+- **Update Projects** - AI-powered incremental updates (adds features intelligently)
+- **Delete Projects** - Clean up local files and/or GitHub repos
+- **List Projects** - View all tracked projects with details
+- **Project Info** - Get detailed context about any project
+- **Detect Changes** - Check what changed locally or on GitHub
 
 ## 📋 Table of Contents
 
@@ -25,10 +75,11 @@
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Usage Examples](#usage-examples)
-- [Available Plugins](#available-plugins)
-- [Creating Custom Plugins](#creating-custom-plugins)
+- [Available Commands](#available-commands)
 - [Project Structure](#project-structure)
+- [How It Works](#how-it-works)
 - [Configuration](#configuration)
+- [Documentation](#documentation)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 
@@ -36,7 +87,8 @@
 
 - **Python 3.8+** (3.12 recommended)
 - **Anthropic API Key** - [Get one here](https://console.anthropic.com/)
-- **GitHub Personal Access Token** (optional, for GitHub features) - [Generate here](https://github.com/settings/tokens)
+- **GitHub Personal Access Token** - [Generate here](https://github.com/settings/tokens)
+  - Required permissions: `repo` (Full control), `workflow`
 - Git (for cloning the repository)
 
 ## 🚀 Installation
@@ -65,260 +117,404 @@ pip install -r requirements.txt
 
 ### 4. Configure Environment Variables
 
-Create a `.env` file in the project root (or export directly):
+Create a `.env` file in the project root:
 
 ```bash
-# Required
-export ANTHROPIC_API_KEY='your-anthropic-api-key-here'
+# Required - Anthropic API for Claude
+ANTHROPIC_API_KEY=your-anthropic-api-key-here
 
-# Optional (for GitHub features)
-export GITHUB_ACCESS_TOKEN='your-github-token-here'
+# Required - GitHub for repository management  
+GITHUB_ACCESS_TOKEN=your-github-token-here
 ```
 
-**Windows Users:**
-```cmd
-set ANTHROPIC_API_KEY=your-anthropic-api-key-here
-set GITHUB_ACCESS_TOKEN=your-github-token-here
+Or export them directly:
+```bash
+export ANTHROPIC_API_KEY='your-anthropic-api-key-here'
+export GITHUB_ACCESS_TOKEN='your-github-token-here'
 ```
 
 ### 5. Verify Installation
 ```bash
 python -c "import semantic_kernel; print('✓ Semantic Kernel installed')"
+python -c "import streamlit; print('✓ Streamlit installed')"
+python -c "import anthropic; print('✓ Anthropic installed')"
+python -c "from tools.project_db import get_db; print('✓ Project database ready')"
 ```
 
 ## 🎯 Quick Start
 
+### CLI Mode (Terminal)
+
 ```bash
-# Run the chatbot
-python main.py
+# Run the AI chatbot
+python -m main
 ```
 
-Type your questions and press Enter. Type `exit` or `quit` to stop.
+You'll see:
+```
+🤖 Semantic Kernel Chatbot with Claude (Type 'exit' or 'quit' to end)
+User: _
+```
+
+Type your project request and press Enter!
+
+### Web UI Mode (Streamlit)
+
+```bash
+# Launch Streamlit interface
+streamlit run app.py
+
+# Or use the launch script (Linux/Mac)
+./run_web.sh
+```
+
+The web interface will open at `http://localhost:8501`
 
 ## 💡 Usage Examples
 
-### General Conversation
-```
-User: Hello! What can you help me with?
-Assistant: Hi! I can help you with various tasks including checking the current time, 
-managing your GitHub repositories, and answering questions. What would you like to do?
-```
+### Example 1: Create a FastAPI Weather API
 
-### Time Queries
+**User Request:**
 ```
-User: What time is it?
-Assistant: The current time is 2:30 PM on October 17, 2025.
+Create a FastAPI application for a weather API with timezone information, 
+5-day forecasts, and humorous weather messages. Include caching, error 
+handling, Docker support, and comprehensive tests. Name it weather-api-app
 ```
 
-### GitHub Repository Management
-
-**List Repositories:**
+**What Gets Generated:**
 ```
-User: can you list all my repos
-Assistant: You have the following GitHub repositories:
-
-- **semantic-chatbot**
-- **dartinbot-framework-qa**
-- **chancetheman**
-```
-
-**Create New Repository:**
-```
-User: can you create a repo named chancetheman and the repo is about a football app
-Assistant: Great! I've successfully created the GitHub repository "chancetheman" for 
-your football app project. The repository is now set up and ready for you to start 
-adding your code and files.
-```
-
-### Complex Queries
-The AI automatically determines which functions to call based on your request:
-
-```
-User: What's the current time and can you also show me my GitHub repos?
-Assistant: The current time is 3:45 PM on October 17, 2025.
-
-You have 3 GitHub repositories:
-- semantic-chatbot
-- dartinbot-framework-qa  
-- chancetheman
-```
-
-## 🔌 Available Plugins
-
-### Built-in Plugins
-
-| Plugin | Description | Functions |
-|--------|-------------|-----------|
-| **TimePlugin** | Semantic Kernel's core time plugin | Get current date/time, timezone info |
-| **Time** | Custom time utilities | Enhanced time formatting |
-| **ProjectSourceControl** | GitHub integration | `list_repos()`, `create_repo()` |
-| **AppInfo** | Application metadata | Returns "Dartinbot" app name |
-
-### ProjectSourceControl Functions
-
-#### `list_repos()`
-Lists all repositories for the authenticated GitHub user.
-
-**Returns:** String with repository names
-
-**Example:**
-```python
-@kernel_function(description="list all user Github Repositories")
-async def list_repos(self) -> str:
-    user = self.gh_client.get_user()
-    for repo in user.get_repos():
-        return repo.name
+weather-api-app/
+├── app/
+│   ├── main.py                 # FastAPI application
+│   ├── api/
+│   │   └── v1/
+│   │       ├── weather.py      # Weather endpoints
+│   │       ├── timezone.py     # Timezone endpoints
+│   │       └── combined.py     # Combined endpoints
+│   ├── services/
+│   │   ├── weather_client.py   # External API client
+│   │   ├── weather_messages.py # Humor generator
+│   │   └── cache.py            # Caching service
+│   ├── schemas/
+│   │   ├── weather.py          # Pydantic models
+│   │   └── timezone.py
+│   └── core/
+│       ├── config.py           # Settings
+│       └── logging_config.py
+├── tests/
+│   ├── api/
+│   │   ├── test_weather.py
+│   │   └── test_timezone.py
+│   └── services/
+│       └── test_weather_messages.py
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── README.md
+└── pytest.ini
 ```
 
-#### `create_repo(repo_name: str, project_description: str)`
-Creates a new GitHub repository for the authenticated user.
+**Result:**
+- ✅ 38 files created
+- ✅ GitHub repository created
+- ✅ Initial commit pushed
+- ✅ Project added to database
+- ✅ Ready to run with `uvicorn app.main:app`
 
-**Parameters:**
-- `repo_name` (str): Name of the new repository
-- `project_description` (str): Description of the repository purpose
+### Example 2: Update an Existing Project
 
-**Returns:** String with repository name or error message
-
-**Example:**
-```python
-@kernel_function(description="Create Github Repo")  
-async def create_repo(self, repo_name: str, project_description: str) -> str:
-    user = self.gh_client.get_user()
-    try:
-        new_repo = user.create_repo(
-            name=repo_name,
-            description=project_description
-        )
-        return new_repo.name
-    except Exception as e:
-        return f"Error: Unable to create github repo: {e}"
+**User Request:**
+```
+Update timezone-weather-api to add authentication using JWT tokens
 ```
 
-### Time Plugin Functions
+**What Happens:**
+1. AI analyzes existing project structure
+2. Generates authentication middleware
+3. Adds JWT token generation/validation
+4. Updates endpoints with `@require_auth` decorators
+5. Adds authentication tests
+6. Updates README with auth documentation
+7. Creates feature branch `feature/add-jwt-authentication`
+8. Opens pull request with detailed description
+9. Updates project snapshot
 
-#### `get_time()`
-Returns the current date and time.
-
-**Example:**
-```python
-@kernel_function(description="Get current date and time")
-async def get_time() -> datetime.datetime.now:
-    return datetime.datetime.now()
+**Result:**
+```
+Pull Request #5: Add JWT Authentication
+- Modified: 8 files
+- Added: 4 files
+- Deleted: 0 files
+Branch: feature/add-jwt-authentication-1729456789
 ```
 
-### AppInfo Plugin Functions
+### Example 3: Detect Changes
 
-#### `app()`
-Returns the application name.
-
-**Returns:** "Dartinbot"
-
-**Example:**
-```python
-@kernel_function(description="AI chatbot info")
-async def app() -> str:
-    return "Dartinbot"
+**User Request:**
+```
+Check what changed in my weather-api-app
 ```
 
-## 🛠️ Creating Custom Plugins
+**Response:**
+```
+🔍 CHANGE DETECTION REPORT
+============================================================
 
-### Step 1: Create Plugin Class
+Project: weather-api-app
+Status: Changes detected locally (not on GitHub yet)
 
-Create a new file in `tools/` directory:
+📁 LOCAL CHANGES (since last snapshot):
+- Added: 2 files
+- Modified: 3 files
+- Deleted: 0 files
 
-```python
-# tools/my_plugin.py
-from semantic_kernel.functions import kernel_function
+  Modified Files:
+    - app/main.py (changed at 2025-10-20T15:33:09)
+    - README.md (changed at 2025-10-20T15:30:15)
+    - requirements.txt (changed at 2025-10-20T15:28:42)
 
-class MyPlugin:
-    """
-    Description of your plugin
-    """
-    
-    def __init__(self):
-        # Initialize any resources
-        pass
-    
-    @kernel_function(description="Clear description of what this function does")
-    async def my_function(self, param1: str, param2: int) -> str:
-        """
-        Function docstring
-        
-        Args:
-            param1: Description of parameter 1
-            param2: Description of parameter 2
-            
-        Returns:
-            Result description
-        """
-        # Your implementation
-        return f"Result: {param1} {param2}"
+  Added Files:
+    - app/middleware/auth.py (1234 bytes)
+    - tests/test_auth.py (567 bytes)
+
+🔄 SYNC STATUS:
+- In sync: ❌ No
+- Only local: 2 files (not pushed to GitHub)
+============================================================
 ```
 
-### Step 2: Register Plugin
+### Example 4: Create a React + TypeScript App
 
-Add to `main.py`:
-
-```python
-from tools.my_plugin import MyPlugin
-
-# In chat_with_ai() function:
-kernel.add_plugin(MyPlugin(), "MyPluginName")
+**User Request:**
+```
+Create a React app with TypeScript, Tailwind CSS, and React Router. 
+Include a dashboard with charts, user authentication flow, and API 
+integration. Use Vite for building. Name it dashboard-app
 ```
 
-### Step 3: Test
+**What Gets Generated:**
+- Complete TypeScript React application
+- Vite configuration
+- Tailwind CSS setup
+- React Router setup
+- Authentication components (Login, Register, ProtectedRoute)
+- Dashboard with sample charts
+- API service layer with Axios
+- TypeScript types and interfaces
+- ESLint and Prettier config
+- Package.json with all dependencies
+- README with setup instructions
 
-The AI will automatically discover and use your plugin:
+### Example 5: List All Projects
 
+**User Request:**
 ```
-User: Can you use my function with test and 42?
-Assistant: Result: test 42
+List all my projects
 ```
 
-### Best Practices
+**Response:**
+```
+You have 3 active project(s):
 
-✅ **DO:**
-- Use descriptive function names
-- Provide clear descriptions in `@kernel_function`
-- Add type hints for parameters
-- Handle exceptions gracefully
-- Return informative error messages
-- Instantiate classes with `()` when adding to kernel
+**timezone-weather-api** (UUID: 8012cb68...)
+  - Repository: timezone-weather-api
+  - Location: /home/user/.dartinbot/projects/timezone-weather-api
+  - Description: Production-ready FastAPI application...
+  - Created: 2025-10-20T20:54:21
+  - URL: https://github.com/RakeemRanger/timezone-weather-api
 
-❌ **DON'T:**
-- Use vague descriptions
-- Skip type annotations
-- Forget error handling
-- Return sensitive information in plain text
-- Add class without instantiating: `kernel.add_plugin(MyPlugin)` ❌
+**bls-data-semantic-kernel** (UUID: 7a91bc54...)
+  - Repository: bls-data-semantic-kernel
+  - Location: /home/user/.dartinbot/projects/bls-data-semantic-kernel
+  - Description: Streamlit application with Semantic Kernel...
+  - Created: 2025-10-20T19:22:15
+  - URL: https://github.com/RakeemRanger/bls-data-semantic-kernel
 
-## 📁 Project Structure
+**dashboard-app** (UUID: 6f8de423...)
+  - Repository: dashboard-app
+  - Location: /home/user/.dartinbot/projects/dashboard-app
+  - Description: React TypeScript dashboard with charts...
+  - Created: 2025-10-20T18:10:33
+  - URL: https://github.com/RakeemRanger/dashboard-app
+```
+
+## 🎮 Available Commands
+
+The AI understands natural language, so you can phrase requests however you like!
+
+### Project Creation
+- "Create a [type] application for [purpose] with [features]. Name it [name]"
+- "Build me a [framework] app that does [description]"
+- "Generate a [language] project with [requirements]"
+
+### Project Updates
+- "Update [project-name] to add [feature]"
+- "Modify [project-name] to include [changes]"
+- "Add [feature] to my [project-name] project"
+
+### Project Management
+- "List all my projects"
+- "List my repos" / "Show my GitHub repositories"
+- "Tell me about [project-name]"
+- "Get info on [project-name]"
+- "Delete [project-name]" (deletes local and/or remote)
+
+### Change Detection
+- "Check what changed in [project-name]"
+- "Detect changes in [project-name]"
+- "Has [project-name] been modified?"
+- "Update snapshot for [project-name]"
+
+## 🏗️ Project Structure
 
 ```
 semantic-chatbot/
-├── 📄 main.py                    # Main chatbot entry point
+├── main.py                     # CLI entry point
+├── app.py                      # Streamlit web UI
+├── run_web.sh                  # Launch script
+├── requirements.txt            # Dependencies
+├── .env                        # Environment variables (create this)
+├── .gitignore                 # Git ignore patterns
+├── README.md                   # This file
 │
-├── 📂 tools/                     # Custom plugins directory
-│   ├── get_time.py              # Time utilities plugin
-│   ├── app_info.py              # Application information ("Dartinbot")
-│   └── project_scaffold.py      # GitHub integration (list/create repos)
+├── tools/                      # AI Tools & Plugins
+│   ├── scaffold_generator.py  # Project scaffold generator
+│   ├── source_control.py       # GitHub integration
+│   ├── project_db.py           # Project database
+│   ├── change_detector.py      # Change detection system
+│   └── prompts/
+│       └── scaffoldPrompt.md   # Scaffold generation prompt
 │
-├── 📂 semanticvenv/             # Virtual environment (gitignored)
+├── lib/                        # Core libraries
+│   ├── claude_details.py       # Claude API client
+│   ├── log_client.py           # Logging configuration
+│   └── CONSTANTS.py            # Constants and paths
 │
-├── 📄 requirements.txt          # Python dependencies
-├── 📄 .gitignore                # Git ignore patterns
-├── 📄 .env                      # Environment variables (gitignored)
-└── 📄 README.md                 # This file
+├── plugins/                    # Semantic Kernel plugins
+│   ├── TimeTools.py            # Time/date functions
+│   └── AppInfo.py              # App metadata
+│
+├── .streamlit/                 # Streamlit configuration
+│   └── config.toml             # Custom theme
+│
+├── logs/                       # Application logs
+│   └── tools.source_control.log
+│
+└── tests/                      # Test files
+    ├── test_project_db.py
+    ├── test_change_detection.py
+    └── ...
 ```
 
-### File Descriptions
+### Generated Projects Location
 
-| File | Purpose |
-|------|---------|
-| `main.py` | Interactive chatbot with automatic function calling |
-| `tools/get_time.py` | Custom time plugin returning current datetime |
-| `tools/project_scaffold.py` | GitHub API integration for repo management |
-| `tools/app_info.py` | Returns application name "Dartinbot" |
+All generated projects are stored in:
+```
+~/.dartinbot/projects/
+├── project-name-1/
+├── project-name-2/
+├── project-name-3/
+└── projects_db.json           # Project database
+```
+
+## 🔧 How It Works
+
+### 1. Project Creation Flow
+
+```
+User Request
+    ↓
+Semantic Kernel
+    ↓
+Claude Sonnet 4.5 (Streaming API)
+    ↓
+JSON Scaffold Generation
+    {
+      "project_name": "...",
+      "folders": [...],
+      "files": [
+        {
+          "path": "...",
+          "content": "..."
+        }
+      ]
+    }
+    ↓
+File System Creation
+    ↓
+GitHub Repository Creation
+    ↓
+Git Commit & Push
+    ↓
+Database Entry (UUID, metadata)
+    ↓
+File Snapshot (SHA256 hashes)
+    ↓
+Success Response
+```
+
+### 2. Project Update Flow
+
+```
+Update Request
+    ↓
+Get Project from Database
+    ↓
+Load Existing Files
+    ↓
+Claude Analyzes + Generates Changes
+    {
+      "summary": "...",
+      "changes": [
+        {
+          "path": "...",
+          "action": "modify|add|delete",
+          "content": "..."
+        }
+      ]
+    }
+    ↓
+Apply Changes Locally
+    ↓
+Create Feature Branch
+    ↓
+Commit to Feature Branch
+    ↓
+Create Pull Request
+    ↓
+Update Database + Snapshot
+    ↓
+Return PR URL
+```
+
+### 3. Change Detection Flow
+
+```
+detect_project_changes()
+    ↓
+Load Last Snapshot from DB
+    ↓
+Scan Current Local Files
+    ↓
+Compute SHA256 Hashes
+    ↓
+Compare to Snapshot
+    ↓
+Query GitHub API
+    ↓
+Get Recent Commits
+    ↓
+Compare Local vs GitHub
+    ↓
+Generate Report
+    - Local changes
+    - GitHub commits
+    - Sync status
+    ↓
+Return to User
+```
 
 ## ⚙️ Configuration
 
@@ -326,339 +522,134 @@ semantic-chatbot/
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `ANTHROPIC_API_KEY` | ✅ Yes | Your Anthropic API key for Claude access |
-| `GITHUB_ACCESS_TOKEN` | ⚠️ Optional | GitHub Personal Access Token for repo features |
+| `ANTHROPIC_API_KEY` | Yes | Your Anthropic API key for Claude |
+| `GITHUB_ACCESS_TOKEN` | Yes | GitHub PAT with `repo` and `workflow` permissions |
 
-### Getting Your API Keys
+### Streamlit Configuration
 
-#### Anthropic API Key
-1. Visit [Anthropic Console](https://console.anthropic.com/)
-2. Sign up or log in
-3. Navigate to API Keys section
-4. Create a new API key
-5. Copy and save securely
+Located in `.streamlit/config.toml`:
 
-#### GitHub Personal Access Token
-1. Go to [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
-2. Click **"Generate new token (classic)"**
-3. Give it a descriptive name (e.g., "Semantic Chatbot")
-4. Select scopes:
-   - ✅ `repo` - Full control of private repositories
-   - ✅ `read:user` - Read user profile data
-5. Click **"Generate token"**
-6. **Copy immediately** (you won't see it again!)
-7. Set as environment variable
+```toml
+[theme]
+primaryColor = "#FF6B6B"
+backgroundColor = "#0E1117"
+secondaryBackgroundColor = "#262730"
+textColor = "#FAFAFA"
+font = "sans serif"
 
-### Model Configuration
+[server]
+headless = true
+port = 8501
+```
 
-In `main.py`, you can customize the AI model:
+### Project Database Location
 
+Default: `~/.dartinbot/projects/projects_db.json`
+
+Can be customized in `tools/project_db.py`:
 ```python
-anthropc_model = "claude-sonnet-4-5"  # Current model
-
-# Other options:
-# - "claude-3-5-sonnet-20241022"
-# - "claude-3-opus-20240229"
-# - "claude-3-haiku-20240307"
+db = ProjectDatabase(db_path="/custom/path/projects_db.json")
 ```
 
-### Execution Settings
+## 📚 Documentation
 
-Customize AI behavior in your code:
+Comprehensive documentation is available in the `/docs` folder:
 
-```python
-settings = AnthropicChatPromptExecutionSettings(
-    function_choice_behavior=FunctionChoiceBehavior.Auto(),
-    max_tokens=4096,           # Maximum response length
-    temperature=0.7,           # Creativity (0.0-1.0)
-    top_p=0.9,                # Nucleus sampling
-)
-```
-
-## Contributing
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-[MIT License](LICENSE)
-
-## Security Note
-⚠️ **Important:** Never commit your API keys to version control. Always use environment variables for sensitive information.
-
-## 🔍 How It Works
-
-### Architecture Overview
-
-```
-User Input
-    ↓
-Chat History ←──────┐
-    ↓               │
-Semantic Kernel     │
-    ├── AI Service (Claude)
-    ├── Plugins Registry
-    │   ├── TimePlugin
-    │   ├── ProjectSourceControl
-    │   └── Custom Tools
-    ↓               │
-Function Calling    │
-    ├── Auto-detect needed functions
-    ├── Invoke functions
-    ├── Collect results
-    ↓               │
-Response Generation │
-    └───────────────┘
-```
-
-### Execution Flow
-
-1. **Initialize Kernel**
-   ```python
-   kernel = Kernel()
-   kernel.add_service(AnthropicChatCompletion(...))
-   
-   # Add all plugins
-   kernel.add_plugin(Time(), "TimeTools")
-   kernel.add_plugin(AppName(), "AppInfo")
-   kernel.add_plugin(ProjectSourceControl(), "ProjectSourceControl")
-   ```
-
-2. **Configure Function Calling**
-   ```python
-   settings = AnthropicChatPromptExecutionSettings(
-       function_choice_behavior=FunctionChoiceBehavior.Auto()
-   )
-   ```
-
-3. **User Input** → Chat history updated
-
-4. **AI Analysis** → Claude decides if functions are needed
-
-5. **Function Execution** → Semantic Kernel invokes tools automatically
-
-6. **Response Synthesis** → Claude formulates answer using function results
-
-### Key Concepts
-
-#### Function Choice Behavior
-Controls how AI selects functions:
-- **Auto()**: AI decides when to use functions
-- **Required()**: AI must use at least one function
-- **None()**: AI cannot use functions (dry run)
-
-#### Kernel Parameter
-**Critical**: Must pass kernel to enable function calling:
-```python
-response = await chat_completion.get_chat_message_content(
-    chat_history=history,
-    settings=settings,
-    kernel=kernel,  # ← Required!
-)
-```
-
-Without `kernel`, Claude won't know about available functions!
+- **[PROJECT_DATABASE.md](PROJECT_DATABASE.md)** - Project database system guide
+- **[CHANGE_DETECTION.md](CHANGE_DETECTION.md)** - Change detection system docs
+- **[SCAFFOLD_GUIDE.md](SCAFFOLD_GUIDE.md)** - Scaffold generation guide
+- **[SCAFFOLD_IMPLEMENTATION.md](SCAFFOLD_IMPLEMENTATION.md)** - Implementation details
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### Issue: "Repository creation failed. name already exists"
 
-#### Issue: "I don't have access to real-time information"
+**Solution:** The project database will now automatically detect existing repos and reuse them instead of trying to create duplicates.
 
-**Symptoms:** AI says it can't access time or other functions
+### Issue: Changes not detected
 
-**Solutions:**
-1. ✅ Verify `FunctionChoiceBehavior.Auto()` is set:
-   ```python
-   settings = AnthropicChatPromptExecutionSettings(
-       function_choice_behavior=FunctionChoiceBehavior.Auto()
-   )
-   ```
+**Solution:** Run `update_project_snapshot(repo_name)` to update the baseline snapshot.
 
-2. ✅ Ensure kernel is passed to chat completion:
-   ```python
-   response = await chat_completion.get_chat_message_content(
-       chat_history=history,
-       settings=settings,
-       kernel=kernel,  # Must include this!
-   )
-   ```
+### Issue: PR creation failed
 
-3. ✅ Verify plugins are registered:
-   ```python
-   kernel.add_plugin(Time(), "TimeTools")  # Note the () !
-   ```
+**Solution:** Check that your GitHub PAT has the `repo` and `workflow` permissions. Regenerate if needed.
 
----
+### Issue: Anthropic API errors
 
-#### Issue: `TypeError: 'NoneType' object has no attribute 'get_chat_message_content'`
+**Solution:** 
+- Verify your API key is correct
+- Check your API usage/credits
+- Ensure you have access to Claude Sonnet 4.5
 
-**Cause:** `kernel.add_service()` returns `None`
+### Issue: Streaming timeout
 
-**Solution:**
-```python
-# Wrong ❌
-chat_completion = kernel.add_service(AnthropicChatCompletion(...))
+**Solution:** For very large projects (100+ files), the streaming may take >10 minutes. This is normal. The system uses Claude's streaming API specifically for this.
 
-# Correct ✅
-kernel.add_service(AnthropicChatCompletion(...))
-chat_completion = kernel.get_service(service_id="chat")
-```
+### Issue: "Project not found in database"
 
----
+**Solution:** The project might have been created outside the system. Use the scaffold generator to create projects so they're tracked properly.
 
-#### Issue: `missing 1 required positional argument: 'self'`
+## 🎁 Example Projects You Can Create
 
-**Cause:** Passing class instead of instance
+Here are some ideas:
 
-**Solution:**
-```python
-# Wrong ❌
-kernel.add_plugin(ProjectSourceControl, "GitHubTools")
+1. **REST APIs**
+   - FastAPI weather service
+   - Express.js todo API
+   - Django blog backend
+   - Flask machine learning API
 
-# Correct ✅
-kernel.add_plugin(ProjectSourceControl(), "GitHubTools")
-```
+2. **Web Applications**
+   - React dashboard
+   - Next.js e-commerce site
+   - Vue.js admin panel
+   - Streamlit data app
 
----
+3. **Data Science**
+   - Jupyter notebook project
+   - Pandas data pipeline
+   - Scikit-learn model training
+   - TensorFlow inference service
 
-#### Issue: Second plugin overrides first one
+4. **DevOps**
+   - Docker-based microservices
+   - Kubernetes deployment configs
+   - CI/CD pipeline templates
+   - Infrastructure as Code (Terraform)
 
-**Cause:** Plugins need unique names
-
-**Solution:**
-```python
-# Wrong ❌
-kernel.add_plugin(Time())
-kernel.add_plugin(AppName())  # Might override!
-
-# Correct ✅
-kernel.add_plugin(Time(), "TimeTools")
-kernel.add_plugin(AppName(), "AppInfo")
-```
-
----
-
-#### Issue: GitHub functions not working
-
-**Checks:**
-1. ✅ `GITHUB_ACCESS_TOKEN` is set
-2. ✅ Token has correct scopes (`repo`, `read:user`)
-3. ✅ Token hasn't expired
-4. ✅ Import uses correct Auth method:
-   ```python
-   from github.Auth import Token
-   self.AUTH = Auth.Token(self.GITHUB_PAT)
-   ```
-
----
-
-### Debug Mode
-
-Enable verbose logging:
-
-```python
-import logging
-
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger("semantic_kernel")
-```
-
-### Getting Help
-
-1. Check [Semantic Kernel Documentation](https://learn.microsoft.com/en-us/semantic-kernel/)
-2. Review [Anthropic API Docs](https://docs.anthropic.com/)
-3. Open an [Issue on GitHub](https://github.com/RakeemRanger/semantic-chatbot/issues)
-
----
+5. **Specialized**
+   - Discord bot
+   - Slack bot
+   - Chrome extension
+   - CLI tool
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how to get started:
+Contributions are welcome! Please:
 
-1. **Fork the repository**
-2. **Create feature branch**: `git checkout -b feature/amazing-feature`
-3. **Commit changes**: `git commit -m "feat: add amazing feature"`
-4. **Push to branch**: `git push origin feature/amazing-feature`
-5. **Open Pull Request**
-
-### Commit Convention
-- `feat:` New feature
-- `fix:` Bug fix  
-- `docs:` Documentation
-- `refactor:` Code refactoring
-
----
-
-## 📝 Roadmap
-
-### Completed ✅
-- [x] Automatic function calling
-- [x] Time plugin
-- [x] GitHub integration (list & create repos)
-- [x] Autonomous agent mode
-
-### Planned 📅
-- [ ] Chat history persistence
-- [ ] Configuration file support
-- [ ] Test suite (pytest)
-- [ ] Additional plugins (weather, web search)
-- [ ] Streaming responses
-- [ ] Docker support
-
----
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file for details.
+MIT License - see LICENSE file for details
 
-**Third-Party:**
-- Semantic Kernel - MIT
-- Anthropic Python SDK - MIT  
-- PyGithub - LGPL-3.0
+## 🙏 Acknowledgments
 
----
-
-## 🔒 Security
-
-⚠️ **Never commit:**
-- API keys
-- Access tokens
-- Passwords
-
-✅ **Always use:**
-- Environment variables
-- `.gitignore` for sensitive files
-
-Report security issues to: [security@example.com](mailto:security@example.com)
-
----
-
-## 👏 Acknowledgments
-
-- **Microsoft Semantic Kernel Team** - Amazing framework
-- **Anthropic** - Claude AI and excellent API
-- **GitHub** - PyGithub library
-- **Open Source Community** - Inspiration and contributions
-
----
+- **Microsoft Semantic Kernel** - AI orchestration framework
+- **Anthropic Claude** - State-of-the-art language model
+- **Streamlit** - Beautiful web UI framework
+- **PyGithub** - GitHub API integration
 
 ## 📧 Support
 
-- 📖 [Documentation](https://github.com/RakeemRanger/semantic-chatbot/wiki)
-- 🐛 [Bug Reports](https://github.com/RakeemRanger/semantic-chatbot/issues)
-- 💬 [Discussions](https://github.com/RakeemRanger/semantic-chatbot/discussions)
+- **Issues**: [GitHub Issues](https://github.com/RakeemRanger/semantic-chatbot/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/RakeemRanger/semantic-chatbot/discussions)
+- **Email**: [Your Email]
 
 ---
 
-<div align="center">
-
-**Made with ❤️ using Semantic Kernel and Claude AI**
-
-⭐ Star this repo if you find it helpful!
-
-[Report Bug](https://github.com/RakeemRanger/semantic-chatbot/issues) · [Request Feature](https://github.com/RakeemRanger/semantic-chatbot/issues) · [Contribute](https://github.com/RakeemRanger/semantic-chatbot/pulls)
-
-</div>
+**Built with ❤️ using Semantic Kernel and Claude Sonnet 4.5**
