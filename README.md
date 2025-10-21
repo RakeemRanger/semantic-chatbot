@@ -648,8 +648,8 @@ MIT License - see LICENSE file for details
 
 - **Issues**: [GitHub Issues](https://github.com/RakeemRanger/semantic-chatbot/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/RakeemRanger/semantic-chatbot/discussions)
-- **Email**: [Your Email]
+- **Email**: rangerrakeem@gmail.com
 
 ---
 
-**Built with ❤️ using Semantic Kernel and Claude Sonnet 4.5**
+
